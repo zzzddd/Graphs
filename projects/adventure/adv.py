@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-
+from graph import Graph
 import random
 from ast import literal_eval
 
@@ -30,6 +30,24 @@ player = Player(world.starting_room)
 traversal_path = []
 
 
+# ------------------------------------------------------------------------
+
+# # Single Trial
+
+# # Instantiate Graph object
+traversal_graph = Graph(player)
+
+# Until the traversal graph matches the maze in size, run BFS algorithm to find nearest unexplored room, then run recursive DFT algorithm to traverse
+while len(traversal_graph.rooms) < len(room_graph):
+    traversal_graph.bfs()
+    traversal_graph.dft_recursive()
+
+# Replace traversal_path variable with traversal_path attribute in graph object
+traversal_path = traversal_graph.traversal_path
+
+# ------------------------------------------------------------------------
+
+
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -50,13 +68,13 @@ else:
 
 #######
 # UNCOMMENT TO WALK AROUND
-#######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# #######
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
